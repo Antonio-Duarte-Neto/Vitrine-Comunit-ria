@@ -43,3 +43,34 @@ export function removerServico(id) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(filtrados)); // Salva os seviços atualizados no local localStorage
     return filtrados;
 }
+
+const DADOS_INICIAIS = [
+    {
+        id: '1',
+        nome: 'Maré Alta Artesanatos & Cerâmicas',
+        categoria: 'Artesanato',
+        bairro: 'Centro Histórico',
+        precoBase: 35.00,
+        telefone: '48991234567',
+        descricao: 'Peças artesanais e utilitárias modeladas à mão com argila local.'
+    },
+    {
+        id: '2',
+        nome: 'Garopaba Web & Design Studio',
+        categoria: 'Tecnologia',
+        bairro: 'Ferrugem',
+        precoBase: 150.00,
+        telefone: '48998765432',
+        descricao: 'Criação de websites profissionais responsivos e cardápios digitais.'
+    },
+    {
+        id: '3',
+        nome: 'Pescado Fresco do Zequinha',
+        categoria: 'Alimentação',
+        bairro: 'Canto das Canoas',
+        precoBase: 42.00,
+        telefone: '48984561234',
+        descricao: 'Peixes frescos e frutos do mar da pesca artesanal diária.'
+    }
+];
+
