@@ -39,10 +39,12 @@ export function criarCardHtml(s) {
                             <i class="bi bi-whatsapp me-1"></i>${formatarTelefone(s.telefone)}
                         </a>
                         <div class="d-flex gap-1">
+
                             <button class="btn btn-sm btn-outline-primary btn-editar rounded-pill px-2"
                                 data-id="${s.id}" title="Editar serviço">
                                 <i class="bi bi-pencil-square"></i>
                             </button>
+
                             <button class="btn btn-sm btn-outline-danger btn-excluir rounded-pill px-2"
                                 data-id="${s.id}" title="Remover da vitrine">
                                 <i class="bi bi-trash"></i>
@@ -52,4 +54,36 @@ export function criarCardHtml(s) {
                 </div>
             </div>
         </div>`;
+}
+
+// Renderização dinâmica dos cards e tratamento de estado vazio
+export function renderizarCards(servicos, containerElement) {
+    if (!servicos || servicos.length === 0) {
+        containerElement.innerHTML = `
+            <div class="col-12 text-center py-5">
+                <div class="p-4 rounded-4 bg-light border">
+                    <i class="bi bi-inbox fs-1 text-muted d-block mb-2"></i>
+                    <h5 class="fw-bold text-secondary mb-1">Nenhum serviço cadastrado nesta categoria</h5>
+                    <p class="text-muted small mb-0">Cadastre um novo serviço ou altere o filtro acima.</p>
+                </div>
+            </div>`;
+        return;
+    }
+    containerElement.innerHTML = servicos.map(criarCardHtml).join('');
+}
+
+// Notificações flutuantes assíncronas (Toasts) com auto-fechamento
+export function exibirToast(mensagem, tipo = 'success') {
+    const toastEl = document.getElementById('toastNotificacao');
+    const toastMsg = document.getElementById('toastMensagem');
+    const toastTitulo = document.getElementById('toastTitulo');
+    if (toastEl && toastMsg) {
+        toastMsg.innerText = mensagem;
+        if (toastTitulo) {
+            toastTitulo.innerText = tipo === 'success' ? 'Sucesso!' : 'Aviso';
+        }
+        toastEl.className = `toast align-items-center text-bg-${tipo} border-0 shadow-lg`;
+        const toast = bootstrap.Toast.getOrCreateInstance(toastEl, { delay: 4000 });
+        toast.show();
+    }
 }
