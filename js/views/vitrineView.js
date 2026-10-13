@@ -8,19 +8,19 @@ import { formatarMoeda, formatarTelefone, escapeHtml } from '../utils/formatters
 
 // Mapeamento de cores para categorias
 const CORES_CATEGORIA = {
-  'Alimentação': 'success',
-  'Tecnologia': 'info',
-  'Artesanato': 'warning',
-  'Serviços Gerais': 'primary',
-  'Turismo': 'secondary'
+    'Alimentação': 'success',
+    'Tecnologia': 'info',
+    'Artesanato': 'warning',
+    'Serviços Gerais': 'primary',
+    'Turismo': 'secondary'
 };
 
 // Função para criar o HTML de um card de serviço -> need update (code working) 30/10
 export function criarCardHtml(s) {
-  const corBadge = CORES_CATEGORIA[s.categoria] || 'primary';
-  const telNumeros = (s.telefone || '').replace(/\D/g, '');
-  
-  return `
+    const corBadge = CORES_CATEGORIA[s.categoria] || 'primary';
+    const telNumeros = (s.telefone || '').replace(/\D/g, '');
+
+    return `
     <div class="col-md-6 col-lg-4 mb-4">
       <div class="card h-100 shadow-sm border-0 vitrine-card rounded-4 overflow-hidden">
         <div class="card-body p-4 d-flex flex-column">
@@ -63,8 +63,8 @@ export function criarCardHtml(s) {
 }
 
 export function renderizarCards(servicos, containerElement) {
-  if (!servicos || servicos.length === 0) {
-    containerElement.innerHTML = `
+    if (!servicos || servicos.length === 0) {
+        containerElement.innerHTML = `
       <div class="col-12 text-center py-5">
         <div class="p-4 rounded-4 bg-light border">
           <i class="bi bi-inbox fs-1 text-muted d-block mb-2"></i>
@@ -72,24 +72,24 @@ export function renderizarCards(servicos, containerElement) {
           <p class="text-muted small mb-0">Cadastre um novo serviço ou altere o filtro acima.</p>
         </div>
       </div>`;
-    return;
-  }
+        return;
+    }
 
-  containerElement.innerHTML = servicos.map(criarCardHtml).join('');
+    containerElement.innerHTML = servicos.map(criarCardHtml).join('');
 }
 
 export function exibirToast(mensagem, tipo = 'success') {
-  const toastEl = document.getElementById('toastNotificacao');
-  const toastMsg = document.getElementById('toastMensagem');
-  const toastTitulo = document.getElementById('toastTitulo');
+    const toastEl = document.getElementById('toastNotificacao');
+    const toastMsg = document.getElementById('toastMensagem');
+    const toastTitulo = document.getElementById('toastTitulo');
 
-  if (toastEl && toastMsg) {
-    toastMsg.innerText = mensagem;
-    if (toastTitulo) {
-      toastTitulo.innerText = tipo === 'success' ? 'Sucesso!' : 'Aviso';
+    if (toastEl && toastMsg) {
+        toastMsg.innerText = mensagem;
+        if (toastTitulo) {
+            toastTitulo.innerText = tipo === 'success' ? 'Sucesso!' : 'Aviso';
+        }
+        toastEl.className = `toast align-items-center text-bg-${tipo} border-0 shadow-lg`;
+        const toast = bootstrap.Toast.getOrCreateInstance(toastEl, { delay: 4000 });
+        toast.show();
     }
-    toastEl.className = `toast align-items-center text-bg-${tipo} border-0 shadow-lg`;
-    const toast = bootstrap.Toast.getOrCreateInstance(toastEl, { delay: 4000 });
-    toast.show();
-  }
 }
